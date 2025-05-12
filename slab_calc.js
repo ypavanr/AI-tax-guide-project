@@ -19,9 +19,9 @@ function taxToPay(taxableAmount){
       tax.slab1[1]=0;
      taxableAmount=taxableAmount-400000;
      if(taxableAmount<=400000){
-      tax.slab1[0]=taxableAmount;
-      tax.slab1[1]=0;
+      tax.slab2[0]=taxableAmount;
         taxAmount+= Math.round(taxableAmount*(5/100))
+        tax.slab2[1]=taxAmount;
         return tax;
      }
      else{
@@ -86,7 +86,7 @@ function taxToPay(taxableAmount){
      return tax
     }
 }
-taxAmount=taxToPay(5000000)
+taxAmount=taxToPay(500000)
 console.log(taxAmount)
 var totalTax=taxAmount.slab1[1]+taxAmount.slab2[1]+taxAmount.slab3[1]+taxAmount.slab4[1]+taxAmount.slab5[1]+taxAmount.slab6[1]+taxAmount.slab7[1]
 console.log(totalTax)
