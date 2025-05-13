@@ -9,9 +9,9 @@ const About = () => {
         <nav>
           <div className="logo">AI TAX GUIDE</div>
           <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About us</a></li>
-            <li><a href="/login">Login</a></li>
+            <li><a href="./taxguide">Home</a></li>
+            <li><a href="./about">About us</a></li>
+            <li><a href="/">Login</a></li>
           </ul>
         </nav>
       </header>

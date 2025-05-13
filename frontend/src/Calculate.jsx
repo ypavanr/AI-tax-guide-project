@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaCalculator } from 'react-icons/fa';
+import Login from './Login';
 
 const Calculate = () => {
   const [income, setIncome] = useState('');
@@ -122,9 +123,9 @@ const Calculate = () => {
       <header style={styles.header}>
         <div style={styles.logo}>AI TAX GUIDE</div>
         <nav style={styles.nav}>
-          <a style={styles.navLink} href="#">Home</a>
-          <a style={styles.navLink} href="#">Login</a>
-          <a style={styles.navLink} href="#">About Us</a>
+          <a style={styles.navLink} href="./taxguide">Home</a>
+          <a style={styles.navLink} href="./">Login</a>
+          <a style={styles.navLink} href="./about">About Us</a>
         </nav>
       </header>
 
@@ -174,7 +175,7 @@ const Calculate = () => {
               onChange={(e) => setNpsOption(e.target.value)}
               style={styles.select}
             >
-              <option value="">Select Type</option>
+              <option style={styles.opt} value="">Select Type</option>
               <option value="gov">Government Emp</option>
               <option value="others">Others</option>
             </select>
@@ -217,7 +218,7 @@ const Calculate = () => {
               onChange={(e) => setSection57Option(e.target.value)}
               style={styles.select}
             >
-              <option value="">Select Option</option>
+              <option style={styles.opt} value="">Select Option</option>
               <option value="15000">Rs 15000</option>
               <option value="1/3rd">1/3rd Family Pension</option>
             </select>
@@ -293,7 +294,7 @@ const styles = {
     borderRadius: '30px',
     border: '2px solid white',
     backgroundColor: 'transparent',
-    color: 'gray',
+    color: '#585555',
     fontSize: '16px',
     outline: 'none',
     width: '100%',
@@ -311,6 +312,8 @@ const styles = {
     fontSize: '16px',
     marginBottom: '10px',
   },
+  
+  
   button: {
     padding: '14px',
     borderRadius: '30px',
