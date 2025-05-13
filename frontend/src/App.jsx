@@ -8,7 +8,7 @@ import TaxGuidePage from './TaxGuidePage';
 
 function App() {
   return<Routes>
-    <Route path="/login" element={<Login/>}/>
+    <Route path="/" element={<Login/>}/>
     <Route path="/register" element={<Register/>}/>
     <Route path="/taxslabs" element={<TaxSlabs/>}/>
     <Route path="/about" element={<About/>}/>

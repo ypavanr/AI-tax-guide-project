@@ -1,15 +1,25 @@
-body {
-    
-  }
-  .login-whole{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: url('img2.jpg') no-repeat center center/cover ;
-  }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+}
+  .login-whole {
+  width: 100vw; /* change this from 100% to 100vw */
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url('img2.jpg') no-repeat center center / cover;
+}
   .wrapper {
     width: 420px;
     background: transparent;
