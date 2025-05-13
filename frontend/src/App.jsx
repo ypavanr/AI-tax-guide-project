@@ -10,8 +10,8 @@ function App() {
   return<Routes>
     <Route path="/login" element={<Login/>}/>
     <Route path="/register" element={<Register/>}/>
-    <Route path="/TaxSlabs" element={<TaxSlabs/>}/>
-    <Route path="/About" element={<About/>}/>
+    <Route path="/taxslabs" element={<TaxSlabs/>}/>
+    <Route path="/about" element={<About/>}/>
     
   </Routes>
   
