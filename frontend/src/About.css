@@ -6,17 +6,20 @@
   }
   
   body {
-    margin: 0;
-    padding: 0;
-    background: url('./team-illustration.png') no-repeat right center,
-                linear-gradient(to right, #e0c3fc, #8ec5fc);
-    background-size: 50% auto, cover;
-    background-attachment: fixed, fixed;
+    background-color: #fff;
+   
+  }
+  .about-whole{
+    background: url('./img3.jpg') ,no-repeat;
+    background-size: 100% auto, cover;
+     background-attachment: fixed, fixed;
     background-repeat: no-repeat, no-repeat;
+     margin: 0;
+    padding: 0;
+     
     font-family: Arial, sans-serif;
     line-height: 1.5;
   }
-  
   header {
     background: #fff;
     padding: 20px 40px;
@@ -32,6 +35,7 @@
   .logo {
     font-size: 20px;
     font-weight: bold;
+    color: black;
   }
   
   .logo span {
@@ -47,12 +51,13 @@
   
   nav ul li a {
     text-decoration: none;
-    color: #333;
+    color: #2e2e2e;
     font-weight: 500;
   }
   
   .about {
     display: flex;
+    width: 100%;
     align-items: center;
     justify-content: space-between;
     padding: 60px 40px;
@@ -79,7 +84,7 @@
   }
   
   .about-us-container {
-    width: 50%;
+    width: 100%;
     float: left;
     margin: auto;
     background: transparent;
@@ -89,25 +94,26 @@
   }
   
   .about-title {
-    font-size: 36px;
+    font-size: 46px;
     color: #2f2f72;
     margin-bottom: 20px;
   }
   
   .about-subtitle {
-    font-size: 24px;
+    font-size: 40px;
     color: #2f2f72;
     margin-top: 30px;
   }
   
   .about-intro {
-    font-size: 18px;
+    font-size: 25px;
     font-weight: 500;
     color: #444;
   }
   
   .about-us-container p {
-    font-size: 16px;
+    font-size: 20px;
+    font-weight: 900;
     color: #555;
     line-height: 1.6;
   }
@@ -156,4 +162,6 @@
     margin-right: auto;
     line-height: 1.6;
   }
-  
+  li{
+    color: black;
+  }

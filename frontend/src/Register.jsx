@@ -34,7 +34,8 @@ const handleSubmit = async (e) => {
     }
 };
 return(
-    <div className="register-container">
+      <div className="registerwhole">
+        <div className="register-container">
             <p>REGISTER PAGE</p>
             <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="name">
@@ -85,5 +86,6 @@ return(
                 </Button>
             </Form>
         </div>
+      </div>
 )
 }

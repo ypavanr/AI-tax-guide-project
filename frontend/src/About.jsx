@@ -1,13 +1,13 @@
 import React from 'react';
 import './About.css';
-import teamIllustration from './team-illustration.png'; 
+
 
 const About = () => {
   return (
-    <>
+    <><div className='about-whole'>
       <header>
         <nav>
-          <div className="logo">Your<span>Website</span></div>
+          <div className="logo">AI TAX GUIDE</div>
           <ul>
             <li><a href="#">Home</a></li>
             <li><a href="#">About us</a></li>
@@ -62,6 +62,7 @@ const About = () => {
           Join us in transforming the tax experience from a burden to a breeze.
         </p>
       </footer>
+      </div>
     </>
   );
 };

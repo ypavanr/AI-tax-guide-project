@@ -4,6 +4,7 @@ import 'boxicons/css/boxicons.min.css';
 
 const Login = () => {
   return (
+    <div className='login-whole'>
     <div className="wrapper">
       <form action="">
         <h1>Login</h1>
@@ -23,6 +24,7 @@ const Login = () => {
           </p>
         </div>
       </form>
+    </div>
     </div>
   );
 };
