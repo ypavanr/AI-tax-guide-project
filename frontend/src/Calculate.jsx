@@ -35,7 +35,8 @@ const Calculate = () => {
     if(taxableAmount<=400000){
       tax.slab1[0]=taxableAmount;
       tax.slab1[1]=0;
-      tax.totalTax=taxAmount.slab1[1]+taxAmount.slab2[1]+taxAmount.slab3[1]+taxAmount.slab4[1]+taxAmount.slab5[1]+taxAmount.slab6[1]+taxAmount.slab7[1]
+      tax.totalTax = tax.slab1[1] + tax.slab2[1] + tax.slab3[1] + tax.slab4[1] + tax.slab5[1] + tax.slab6[1] + tax.slab7[1];
+
         return tax;
     }
     else{
@@ -46,7 +47,8 @@ const Calculate = () => {
       tax.slab2[0]=taxableAmount;
         taxAmount+= Math.round(taxableAmount*(5/100))
         tax.slab2[1]=taxAmount;
-        tax.totalTax=taxAmount.slab1[1]+taxAmount.slab2[1]+taxAmount.slab3[1]+taxAmount.slab4[1]+taxAmount.slab5[1]+taxAmount.slab6[1]+taxAmount.slab7[1]
+        tax.totalTax = tax.slab1[1] + tax.slab2[1] + tax.slab3[1] + tax.slab4[1] + tax.slab5[1] + tax.slab6[1] + tax.slab7[1];
+
         return tax;
      }
      else{
@@ -59,7 +61,8 @@ const Calculate = () => {
       tax.slab3[0]=taxableAmount;
         taxAmount= Math.round(taxableAmount*(10/100))
         tax.slab3[1]=taxAmount;
-        tax.totalTax=taxAmount.slab1[1]+taxAmount.slab2[1]+taxAmount.slab3[1]+taxAmount.slab4[1]+taxAmount.slab5[1]+taxAmount.slab6[1]+taxAmount.slab7[1]
+        tax.totalTax = tax.slab1[1] + tax.slab2[1] + tax.slab3[1] + tax.slab4[1] + tax.slab5[1] + tax.slab6[1] + tax.slab7[1];
+
         return tax;
      }
      else{
@@ -72,7 +75,8 @@ const Calculate = () => {
       tax.slab4[0]=taxableAmount;
         taxAmount= Math.round(taxableAmount*(15/100))
         tax.slab4[1]=taxAmount;
-        tax.totalTax=taxAmount.slab1[1]+taxAmount.slab2[1]+taxAmount.slab3[1]+taxAmount.slab4[1]+taxAmount.slab5[1]+taxAmount.slab6[1]+taxAmount.slab7[1]
+       tax.totalTax = tax.slab1[1] + tax.slab2[1] + tax.slab3[1] + tax.slab4[1] + tax.slab5[1] + tax.slab6[1] + tax.slab7[1];
+
         return tax;
      }
      else{
@@ -85,7 +89,8 @@ const Calculate = () => {
       tax.slab5[0]=taxableAmount;
         taxAmount= Math.round(taxableAmount*(20/100))
         tax.slab5[1]=taxAmount;
-        tax.totalTax=taxAmount.slab1[1]+taxAmount.slab2[1]+taxAmount.slab3[1]+taxAmount.slab4[1]+taxAmount.slab5[1]+taxAmount.slab6[1]+taxAmount.slab7[1]
+        tax.totalTax = tax.slab1[1] + tax.slab2[1] + tax.slab3[1] + tax.slab4[1] + tax.slab5[1] + tax.slab6[1] + tax.slab7[1];
+
         return tax;
      }
      else{
@@ -98,7 +103,8 @@ const Calculate = () => {
       tax.slab6[0]=taxableAmount;
         taxAmount= Math.round(taxableAmount*(25/100))
         tax.slab6[1]=taxAmount;
-        tax.totalTax=taxAmount.slab1[1]+taxAmount.slab2[1]+taxAmount.slab3[1]+taxAmount.slab4[1]+taxAmount.slab5[1]+taxAmount.slab6[1]+taxAmount.slab7[1]
+        tax.totalTax = tax.slab1[1] + tax.slab2[1] + tax.slab3[1] + tax.slab4[1] + tax.slab5[1] + tax.slab6[1] + tax.slab7[1];
+
         return tax;
      }
      else{
@@ -112,10 +118,43 @@ const Calculate = () => {
       taxAmount= Math.round(taxableAmount*(30/100))
       tax.slab7[1]=taxAmount;
     }
-    tax.totalTax=taxAmount.slab1[1]+taxAmount.slab2[1]+taxAmount.slab3[1]+taxAmount.slab4[1]+taxAmount.slab5[1]+taxAmount.slab6[1]+taxAmount.slab7[1]
+    tax.totalTax = tax.slab1[1] + tax.slab2[1] + tax.slab3[1] + tax.slab4[1] + tax.slab5[1] + tax.slab6[1] + tax.slab7[1];
+
      return tax
     }
   };
+  const [taxResult, setTaxResult] = useState(null);
+
+const handleCalculateTax = () => {
+  let totalDeductions = 0;
+
+  if (deductions.standard) totalDeductions += 50000;
+
+  if (deductions.npsEmployer) {
+    const incomeVal = parseFloat(income);
+    if (npsOption === "gov") {
+      totalDeductions += Math.min(0.14 * incomeVal, 200000);
+    } else if (npsOption === "others") {
+      totalDeductions += Math.min(0.10 * incomeVal, 200000);
+    }
+  }
+
+  if (deductions.agniveer) {
+    totalDeductions += parseFloat(agniveerAmount || 0);
+  }
+
+  if (deductions.section57) {
+    if (section57Option === "15000") {
+      totalDeductions += 15000;
+    } else if (section57Option === "1/3rd") {
+      totalDeductions += (parseFloat(income || 0) / 3);
+    }
+  }
+
+  const taxableIncome = Math.max(parseFloat(income) - totalDeductions, 0);
+  const result = calculateTax(taxableIncome);
+  setTaxResult(result);
+};
 
 
   return (
@@ -225,15 +264,40 @@ const Calculate = () => {
           )}
         </div>
 
-        <button onClick={calculateTax} style={styles.button}>
+        <button onClick={handleCalculateTax} style={styles.button}>
           CALCULATE TAX <FaCalculator style={{ marginLeft: '10px' }} />
         </button>
+        {taxResult && (
+  <div style={styles.result}>
+    <h3>Tax Calculation Result</h3>
+    
+    <ul>
+      {Object.keys(taxResult).map((slab, index) => (
+        slab.startsWith("slab") && taxResult[slab][0] > 0 && (
+          <li key={index}>
+            <strong>{slab.toUpperCase()}</strong>: Taxable Amount ₹{taxResult[slab][0]}, Tax ₹{taxResult[slab][1]}
+          </li>
+        )
+      ))}
+    </ul>
+    <p><strong>Total Tax:</strong> ₹{taxResult.totalTax}</p>
+  </div>
+)}
+
       </div>
     </div>
   );
 };
 
 const styles = {
+  result: {
+    marginTop: '20px',
+    padding: '20px',
+    backgroundColor: '#f0f4f8',
+    borderRadius: '8px',
+    boxShadow: '0 0 10px rgba(0,0,0,0.1)',
+    color: 'black'
+  },
   appWrapper: {
     background: "url('./img3.jpg')",
     backgroundRepeat: 'no-repeat',
