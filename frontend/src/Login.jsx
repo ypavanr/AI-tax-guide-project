@@ -3,6 +3,7 @@ import './Login.css';
 import 'boxicons/css/boxicons.min.css';
 
 const Login = () => {
+ 
   return (
     <div className='login-whole'>
     <div className="wrapper">
@@ -16,7 +17,7 @@ const Login = () => {
           <input type="password" placeholder="Password" required />
           <i className='bx bxs-lock-alt'></i>
         </div>
-        <button type="submit" className="btn">LOGIN</button>
+        <button  type="submit" className="btn">LOGIN</button>
 
         <div className="register-link">
           <p>Don't have an account?

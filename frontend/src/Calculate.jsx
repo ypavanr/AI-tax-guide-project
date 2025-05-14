@@ -1,11 +1,24 @@
 import React, { useState } from 'react';
-
-
+import { FaCalculator } from 'react-icons/fa';
+import Login from './Login';
 
 const Calculate = () => {
   const [income, setIncome] = useState('');
   const [age, setAge] = useState('');
-  const [deduction, setDeduction] = useState('');
+  const [deductions, setDeductions] = useState({
+    standard: false,
+    npsEmployer: false,
+    agniveer: false,
+    section57: false,
+  });
+
+  const [agniveerAmount, setAgniveerAmount] = useState('');
+  const [npsOption, setNpsOption] = useState('');
+  const [section57Option, setSection57Option] = useState('');
+
+  const handleCheckboxChange = (key) => {
+    setDeductions((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
 
   const calculateTax = (taxableAmount) => {
     var taxAmount=0;
@@ -104,14 +117,15 @@ const Calculate = () => {
     }
   };
 
+
   return (
     <div style={styles.appWrapper}>
       <header style={styles.header}>
         <div style={styles.logo}>AI TAX GUIDE</div>
         <nav style={styles.nav}>
-          <a style={styles.navLink} href="/">Home</a>
-          <a style={styles.navLink} href="/login">Login</a>
-          <a style={styles.navLink} href="/about">About Us</a>
+          <a style={styles.navLink} href="./taxguide">Home</a>
+          <a style={styles.navLink} href="./">Login</a>
+          <a style={styles.navLink} href="./about">About Us</a>
         </nav>
       </header>
 
@@ -131,34 +145,103 @@ const Calculate = () => {
           onChange={(e) => setAge(e.target.value)}
           style={styles.input}
         />
-     <select
-  value={deduction}
-  onChange={(e) => setDeduction(e.target.value)}
-  style={styles.select}
->
-<option value="" disabled>Deduction</option>
-  <option value="A">A</option>
-  <option value="B">B</option>
-  <option value="C">C</option>
-</select>
 
-        <button onClick={'calculateTax'} style={styles.button}>
+        <div>
+          <label style={styles.checkboxLabel}>
+            <input
+              type="checkbox"
+              name="Standard Deduction"
+              style={styles.checkbox}
+              checked={deductions.standard}
+              onChange={() => handleCheckboxChange('standard')}
+            />
+            Standard Deduction
+          </label>
+
+          <label style={styles.checkboxLabel}>
+            <input
+              type="checkbox"
+              name="NPS-Employer contribution (80CCD(2))"
+              style={styles.checkbox}
+              checked={deductions.npsEmployer}
+              onChange={() => handleCheckboxChange('npsEmployer')}
+            />
+            NPS-Employer contribution (80CCD(2))
+          </label>
+          {deductions.npsEmployer && (
+            <select
+              id="NPS"
+              value={npsOption}
+              onChange={(e) => setNpsOption(e.target.value)}
+              style={styles.select}
+            >
+              <option style={styles.opt} value="">Select Type</option>
+              <option value="gov">Government Emp</option>
+              <option value="others">Others</option>
+            </select>
+          )}
+
+          <label style={styles.checkboxLabel}>
+            <input
+              type="checkbox"
+              name="Agniveer Corpus (80CCH(2))"
+              style={styles.checkbox}
+              checked={deductions.agniveer}
+              onChange={() => handleCheckboxChange('agniveer')}
+            />
+            Agniveer Corpus (80CCH(2))
+          </label>
+          {deductions.agniveer && (
+            <input
+              type="text"
+              id="agniveer-amount"
+              placeholder="Enter Amount"
+              value={agniveerAmount}
+              onChange={(e) => setAgniveerAmount(e.target.value)}
+              style={styles.input}
+            />
+          )}
+
+          <label style={styles.checkboxLabel}>
+            <input
+              type="checkbox"
+              name="Section 57(IIA)"
+              style={styles.checkbox}
+              checked={deductions.section57}
+              onChange={() => handleCheckboxChange('section57')}
+            />
+            Section 57(IIA)
+          </label>
+          {deductions.section57 && (
+            <select
+              value={section57Option}
+              onChange={(e) => setSection57Option(e.target.value)}
+              style={styles.select}
+            >
+              <option style={styles.opt} value="">Select Option</option>
+              <option value="15000">Rs 15000</option>
+              <option value="1/3rd">1/3rd Family Pension</option>
+            </select>
+          )}
+        </div>
+
+        <button onClick={calculateTax} style={styles.button}>
           CALCULATE TAX <FaCalculator style={{ marginLeft: '10px' }} />
         </button>
       </div>
-
-      
-      
     </div>
   );
 };
 
 const styles = {
   appWrapper: {
+    background: "url('./img3.jpg')",
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
     fontFamily: 'Arial, sans-serif',
-    background: 'linear-gradient(to bottom, # #1f2c3e, #0d152b)',
     minHeight: '100%',
-    height:'auto',
+    height: 'auto',
     color: 'white',
   },
   header: {
@@ -167,6 +250,7 @@ const styles = {
     alignItems: 'center',
     padding: '20px 40px',
     borderBottom: '1px solid #fff3',
+    backgroundColor: '#1f2c3e',
   },
   logo: {
     fontSize: '24px',
@@ -210,11 +294,26 @@ const styles = {
     borderRadius: '30px',
     border: '2px solid white',
     backgroundColor: 'transparent',
-    color: '#5C5858',
+    color: '#585555',
     fontSize: '16px',
-   
     outline: 'none',
+    width: '100%',
+    marginTop: '10px',
   },
+  checkbox: {
+    marginRight: '10px',
+    marginBottom: '10px',
+    accentColor: '#2d6cdf', 
+  },
+  checkboxLabel: {
+    display: 'flex',
+    alignItems: 'center',
+    color: 'white',
+    fontSize: '16px',
+    marginBottom: '10px',
+  },
+  
+  
   button: {
     padding: '14px',
     borderRadius: '30px',
@@ -228,21 +327,6 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
   },
-  chatBot: {
-    position: 'fixed',
-    bottom: '20px',
-    right: '20px',
-    width: '60px',
-    height: '60px',
-    borderRadius: '50%',
-    backgroundColor: '#2d6cdf',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontSize: '30px',
-    cursor: 'grab',
-  },
-  
 };
 
 export default Calculate;
