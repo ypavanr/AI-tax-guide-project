@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Form, Button } from 'react-bootstrap';
-import axios from 'axios';
 import './Register.css';
-
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 export default function Register() {
+    const navigate = useNavigate();
 const [formData,setFormData]=useState({
     name:'',
     email:'',
@@ -21,16 +22,17 @@ const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-        const response = await axios.post('http://localhost:3000/register', formData);
+        const response = await axios.post('http://localhost:3000/auth/register', formData);
 
         if (response.status === 200) {
             console.log(response.data);
+             navigate('/');
         } else {
             alert('Registration failed: ' + response.data.message);
         }
     } catch (error) {
         console.error('Error during registration:', error);
-        alert(error.response.data.message);
+        alert(error.response?.data?.message||"error occured");
     }
 };
 return(

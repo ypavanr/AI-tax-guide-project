@@ -1,6 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import env from "dotenv";
-env.config()
 const ChatBot = () => {
   const [userInput, setUserInput] = useState('');
   const [messages, setMessages] = useState([]);
@@ -23,7 +21,7 @@ const ChatBot = () => {
 
     try {
       
-      const res = await fetch(process.env.NGROK_API, {
+      const res = await fetch("https://2935-34-124-208-105.ngrok-free.app", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt })
