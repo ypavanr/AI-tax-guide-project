@@ -1,38 +1,57 @@
 import React, { useState, useRef, useEffect } from 'react';
-
-
+import env from "dotenv";
+env.config()
 const ChatBot = () => {
   const [userInput, setUserInput] = useState('');
   const [messages, setMessages] = useState([]);
   const chatEndRef = useRef(null);
 
-  
   useEffect(() => {
-    if (chatEndRef.current) {
-      chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
   const sendMessage = async () => {
     if (!userInput.trim()) return;
 
-   
-    setMessages((prev) => [...prev, { sender: 'user', text: userInput }]);
-    const question = userInput;
+    setMessages(prev => [
+      ...prev,
+      { sender: 'user', text: userInput }
+    ]);
+
+    const prompt = userInput;
     setUserInput('');
 
+    try {
+      
+      const res = await fetch(process.env.NGROK_API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt })
+      });
+
+      const { response } = await res.json(); 
+
+    
+      setMessages(prev => [
+        ...prev,
+        { sender: 'assistant', text: response }
+      ]);
+    } catch (err) {
+      console.error(err);
+      setMessages(prev => [
+        ...prev,
+        { sender: 'assistant', text: 'Sorry, something went wrong.' }
+      ]);
+    }
   };
-  
+
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') sendMessage();
   };
 
   return (
-    
     <div style={styles.layout}>
-        
       <div style={styles.label}>AI Tax Bot</div>
-
       <div style={styles.chatContainer}>
         {messages.length === 0 ? (
           <div style={styles.centerPrompt}>What can I help ?</div>
@@ -43,7 +62,8 @@ const ChatBot = () => {
               style={{
                 ...styles.chatBubble,
                 alignSelf: msg.sender === 'user' ? 'flex-end' : 'flex-start',
-                backgroundColor: msg.sender === 'user' ? '#434665' : '#',
+                backgroundColor: msg.sender === 'user' ? '#434665' : '#3E4A89',
+                color: msg.sender === 'user' ? '#fff' : '#ffffff',
               }}
             >
               {msg.text}
@@ -52,7 +72,6 @@ const ChatBot = () => {
         )}
         <div ref={chatEndRef} />
       </div>
-
       <input
         type="text"
         placeholder="Ask Anything"
@@ -67,10 +86,8 @@ const ChatBot = () => {
 
 const styles = {
   layout: {
-    
     background: 'linear-gradient(to bottom, #1f2c3e, #0d152b)',
     color: '#fff',
-    textalign: 'left',
     padding: '30px',
     borderRadius: '10px',
     width: '100%',
@@ -86,26 +103,8 @@ const styles = {
     color: '#ccc',
     marginBottom: '10px',
   },
-  header: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '20px 40px',
-    borderBottom: '1px solid #fff3',
-  },
-  nav: {
-    display: 'flex',
-    gap: '20px',
-  },
-  navLink: {
-    color: '#fff',
-    textDecoration: 'none',
-    fontWeight: '500',
-  },
   chatContainer: {
-    position: 'relative',
     flex: 1,
-    
     overflow: 'auto',
     display: 'flex',
     flexDirection: 'column',
@@ -129,7 +128,6 @@ const styles = {
     padding: '20px 15px',
     borderRadius: '20px',
     maxWidth: '70%',
-    color: '#fff',
     fontSize: '16px',
   },
   input: {
