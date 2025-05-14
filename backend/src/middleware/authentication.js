@@ -45,7 +45,7 @@ const login = async (req, res) => {
 
   try {
     const { rows } = await db.query(
-      "SELECT id, password_hash FROM users WHERE email = $1",
+      "SELECT user_id, password_hash FROM users WHERE email = $1",
       [email]
     );
     if (!rows.length) {

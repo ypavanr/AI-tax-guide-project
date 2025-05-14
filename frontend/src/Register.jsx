@@ -24,8 +24,9 @@ const handleSubmit = async (e) => {
     try {
         const response = await axios.post('http://localhost:3000/auth/register', formData);
 
-        if (response.status === 200) {
+        if (response.status === 201) {
             console.log(response.data);
+            alert( response.data.message);
              navigate('/');
         } else {
             alert('Registration failed: ' + response.data.message);
