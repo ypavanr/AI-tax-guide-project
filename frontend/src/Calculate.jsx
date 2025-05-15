@@ -271,10 +271,10 @@ const handleCalculateTax = () => {
   <div style={styles.result}>
     <h3>Tax Calculation Result</h3>
     
-    <ul>
+    <ul style={styles.slabs}>
       {Object.keys(taxResult).map((slab, index) => (
         slab.startsWith("slab") && taxResult[slab][0] > 0 && (
-          <li key={index}>
+          <li key={index} style={styles.slabItem}>
             <strong>{slab.toUpperCase()}</strong>: Taxable Amount ₹{taxResult[slab][0]}, Tax ₹{taxResult[slab][1]}
           </li>
         )
@@ -290,13 +290,23 @@ const handleCalculateTax = () => {
 };
 
 const styles = {
+  slabItem: {
+  color: 'white',
+  marginBottom: '8px',
+},
+
+  slabs:{
+    color:'white',
+    listStyleType: 'none', 
+  paddingLeft: 0, 
+  },
   result: {
     marginTop: '20px',
     padding: '20px',
-    backgroundColor: '#f0f4f8',
+    backgroundColor: 'transparent',
     borderRadius: '8px',
     boxShadow: '0 0 10px rgba(0,0,0,0.1)',
-    color: 'black'
+    color: 'white'
   },
   appWrapper: {
     background: "url('./img3.jpg')",
