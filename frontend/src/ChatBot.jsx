@@ -115,7 +115,7 @@ const styles = {
   centerPrompt: {
     position: 'absolute',
     top: '50%',
-    left: '50%',
+    left: '75%',
     transform: 'translate(-50%, -50%)',
     fontSize: '28px',
     fontWeight: 'bold',
