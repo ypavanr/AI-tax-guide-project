@@ -21,114 +21,97 @@ const Calculate = () => {
   };
 
   const calculateTax = (taxableAmount) => {
-    var taxAmount=0;
-   var tax={
-      "slab1":[0,0],
-      "slab2":[0,0],
-      "slab3":[0,0],
-      "slab4":[0,0],
-      "slab5":[0,0],
-      "slab6":[0,0],
-      "slab7":[0,0],
-      "totalTax":0
-   };
-    if(taxableAmount<=400000){
-      tax.slab1[0]=taxableAmount;
-      tax.slab1[1]=0;
-      tax.totalTax = tax.slab1[1] + tax.slab2[1] + tax.slab3[1] + tax.slab4[1] + tax.slab5[1] + tax.slab6[1] + tax.slab7[1];
-
-        return tax;
-    }
-    else{
-      tax.slab1[0]=400000;
-      tax.slab1[1]=0;
-     taxableAmount=taxableAmount-400000;
-     if(taxableAmount<=400000){
-      tax.slab2[0]=taxableAmount;
-        taxAmount+= Math.round(taxableAmount*(5/100))
-        tax.slab2[1]=taxAmount;
-        tax.totalTax = tax.slab1[1] + tax.slab2[1] + tax.slab3[1] + tax.slab4[1] + tax.slab5[1] + tax.slab6[1] + tax.slab7[1];
-
-        return tax;
-     }
-     else{
-        tax.slab2[0]=400000;
-        taxAmount=Math.round(400000*(5/100))
-        tax.slab2[1]=taxAmount;
-        taxableAmount=taxableAmount-400000;
-     }
-     if(taxableAmount<=400000){
-      tax.slab3[0]=taxableAmount;
-        taxAmount= Math.round(taxableAmount*(10/100))
-        tax.slab3[1]=taxAmount;
-        tax.totalTax = tax.slab1[1] + tax.slab2[1] + tax.slab3[1] + tax.slab4[1] + tax.slab5[1] + tax.slab6[1] + tax.slab7[1];
-
-        return tax;
-     }
-     else{
-      tax.slab3[0]=400000;
-        taxAmount= Math.round(400000*(10/100))
-        tax.slab3[1]=taxAmount;
-        taxableAmount=taxableAmount-400000;
-     }
-     if(taxableAmount<=400000){
-      tax.slab4[0]=taxableAmount;
-        taxAmount= Math.round(taxableAmount*(15/100))
-        tax.slab4[1]=taxAmount;
-       tax.totalTax = tax.slab1[1] + tax.slab2[1] + tax.slab3[1] + tax.slab4[1] + tax.slab5[1] + tax.slab6[1] + tax.slab7[1];
-
-        return tax;
-     }
-     else{
-      tax.slab4[0]=400000;
-        taxAmount=Math.round(400000*(15/100))
-        tax.slab4[1]=taxAmount;
-        taxableAmount=taxableAmount-400000;
-     }
-     if(taxableAmount<=400000){
-      tax.slab5[0]=taxableAmount;
-        taxAmount= Math.round(taxableAmount*(20/100))
-        tax.slab5[1]=taxAmount;
-        tax.totalTax = tax.slab1[1] + tax.slab2[1] + tax.slab3[1] + tax.slab4[1] + tax.slab5[1] + tax.slab6[1] + tax.slab7[1];
-
-        return tax;
-     }
-     else{
-      tax.slab5[0]=400000;
-        taxAmount=Math.round(400000*(20/100))
-        tax.slab5[1]=taxAmount;
-        taxableAmount=taxableAmount-400000;
-     }
-     if(taxableAmount<=400000){
-      tax.slab6[0]=taxableAmount;
-        taxAmount= Math.round(taxableAmount*(25/100))
-        tax.slab6[1]=taxAmount;
-        tax.totalTax = tax.slab1[1] + tax.slab2[1] + tax.slab3[1] + tax.slab4[1] + tax.slab5[1] + tax.slab6[1] + tax.slab7[1];
-
-        return tax;
-     }
-     else{
-      tax.slab6[0]=400000;
-        taxAmount= Math.round(400000*(25/100))
-        tax.slab6[1]=taxAmount;
-        taxableAmount=taxableAmount-400000;
-     }
-     if(taxableAmount>0)
-    {tax.slab7[0]=taxableAmount;
-      taxAmount= Math.round(taxableAmount*(30/100))
-      tax.slab7[1]=taxAmount;
-    }
-    tax.totalTax = tax.slab1[1] + tax.slab2[1] + tax.slab3[1] + tax.slab4[1] + tax.slab5[1] + tax.slab6[1] + tax.slab7[1];
-
-     return tax
-    }
+  var tax = {
+    "slab1": [0, 0],
+    "slab2": [0, 0],
+    "slab3": [0, 0],
+    "slab4": [0, 0],
+    "slab5": [0, 0],
+    "slab6": [0, 0],
+    "slab7": [0, 0],
+    "totalTax": 0
   };
+
+  if (taxableAmount <= 400000) {
+    tax.slab1[0] = taxableAmount;
+    tax.totalTax = 0;
+    return tax;
+  } else {
+    tax.slab1[0] = 400000;
+    tax.slab1[1] = 0;
+    taxableAmount -= 400000;
+  }
+
+  if (taxableAmount <= 400000) {
+    tax.slab2[0] = taxableAmount;
+    tax.totalTax = 0;
+    return tax;
+  } else {
+    tax.slab2[0] = 400000;
+    tax.slab2[1] = 0;
+    taxableAmount -= 400000;
+  }
+
+  if (taxableAmount <= 400000) {
+    tax.slab3[0] = taxableAmount;
+    tax.totalTax = 0;
+    return tax;
+  } else {
+    tax.slab3[0] = 400000;
+    tax.slab3[1] = 0;
+    taxableAmount -= 400000;
+  }
+
+  if (taxableAmount <= 400000) {
+    tax.slab4[0] = taxableAmount;
+    tax.slab4[1] = Math.round(taxableAmount * (15/100));
+    tax.totalTax = tax.slab4[1];
+    return tax;
+  } else {
+    tax.slab4[0] = 400000;
+    tax.slab4[1] = Math.round(400000 *(15/100));
+    taxableAmount -= 400000;
+  }
+
+  if (taxableAmount <= 400000) {
+    tax.slab5[0] = taxableAmount;
+    tax.slab5[1] = Math.round(taxableAmount *(20/100));
+    tax.totalTax = tax.slab4[1] + tax.slab5[1];
+    return tax;
+  } else {
+    tax.slab5[0] = 400000;
+    tax.slab5[1] = Math.round(400000 * (20/100));
+    taxableAmount -= 400000;
+  }
+
+  if (taxableAmount <= 400000) {
+    tax.slab6[0] = taxableAmount;
+    tax.slab6[1] = Math.round(taxableAmount * (25/100));
+    tax.totalTax = tax.slab4[1] + tax.slab5[1] + tax.slab6[1];
+    return tax;
+  } else {
+    tax.slab6[0] = 400000;
+    tax.slab6[1] = Math.round(400000 * (25/100));
+    taxableAmount -= 400000;
+  }
+
+  if (taxableAmount > 0) {
+    tax.slab7[0] = taxableAmount;
+    tax.slab7[1] = Math.round(taxableAmount *(30/100));
+  }
+
+  tax.totalTax = tax.slab1[1] + tax.slab2[1] + tax.slab3[1] +
+                 tax.slab4[1] + tax.slab5[1] + tax.slab6[1] + tax.slab7[1];
+
+  return tax;
+};
+
   const [taxResult, setTaxResult] = useState(null);
 
 const handleCalculateTax = () => {
   let totalDeductions = 0;
 
-  if (deductions.standard) totalDeductions += 50000;
+  if (deductions.standard) totalDeductions += 75000;
 
   if (deductions.npsEmployer) {
     const incomeVal = parseFloat(income);
@@ -147,7 +130,7 @@ const handleCalculateTax = () => {
     if (section57Option === "15000") {
       totalDeductions += 15000;
     } else if (section57Option === "1/3rd") {
-      totalDeductions += (parseFloat(income || 0) / 3);
+      totalDeductions += Math.round(parseFloat(income || 0) / 3);
     }
   }
 
