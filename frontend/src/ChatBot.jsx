@@ -21,7 +21,7 @@ const ChatBot = () => {
 
     try {
       
-      const res = await fetch("https://d96a-34-19-103-19.ngrok-free.app/generate", {
+      const res = await fetch(NGROK_URL+"/generate", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt })
